@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function App() {
+    const router = useRouter()
+    useEffect(() => {
+        router.push('/app/dashboard')
+    })
   return (
     <>
         <div className="max-w-screen-lg mx-auto m-2 p-4">

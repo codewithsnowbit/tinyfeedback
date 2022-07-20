@@ -21,6 +21,7 @@ async function createUser(req, res){
                 clerkId: body.clerkId,
             }
         })
+        return res.status(200).json(newUserEntry, {success: true});
     }catch (error) {
         console.error("Request error", error);
         res.status(500).json({ error: "Error creating user", success:false });
