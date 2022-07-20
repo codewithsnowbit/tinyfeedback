@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User{
+  id Int @id @default(autoincrement())
+  clerkId String @unique
+  organizationId String @unique @default(cuid())
+  organizationName String
+  isPro Boolean @default(false)
+  organizationLogoUrl String @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y")
+}
+
+model FeedbackData{
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  clerkId String
+  slug String @unique @default(cuid())
+  createdAt DateTime @default(now())
+  response String @default("[]")
+}
