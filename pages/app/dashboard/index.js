@@ -16,7 +16,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                     <div className="flex flex-row space-x-3">
-                        <div className=" border-b pb-2 pt-1 leading-none text-primary transition sm:px-2 border-blue-500 cursor-pointer">
+                        <div className=" border-b pb-2 pt-1 leading-none text-primary transition sm:px-2 border-sky-400 cursor-pointer">
                             Overview
                         </div>
                         <div className="pb-2 pt-1 leading-none transition sm:px-2 hover:border-b hover:border-gray-800 cursor-pointer">
