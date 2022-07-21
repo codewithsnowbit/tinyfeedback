@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import confetti from 'canvas-confetti'
 import toast, { Toaster } from 'react-hot-toast';
+import AppCard from '../../../components/AppCard'
 
 export default function Dashboard() {
     const router = useRouter()
@@ -12,6 +13,7 @@ export default function Dashboard() {
     const [appName, setAppName] = useState('')
     const [appDescription, setAppDescription] = useState('')
     const [appModalOpen, setAppModalOpen] = useState(false)
+    const [apps, setApps] = useState([])
     useEffect(() => {
         if(query.create === 'true'){
             setAppModalOpen(true)
@@ -30,6 +32,22 @@ export default function Dashboard() {
             })
         }
         getUserDetails()
+    }, [])
+    useEffect(() => {
+        async function getApps() {
+            const org = JSON.parse(localStorage.getItem('orgInfo'))
+            const organizationId = org.organizationId
+            await axios.get(`/api/appinfo?orgId=${organizationId}`)
+            .then(res => {
+                const { data } = res
+                if(data.success){
+                    setApps(data.checkAppEntry)
+                }else{
+                    toast.error(data.message)
+                }
+            })
+        }
+        getApps()
     }, [])
     async function createApplication(){
         const orgInfo = JSON.parse(localStorage.getItem('orgInfo'))
@@ -128,7 +146,7 @@ export default function Dashboard() {
             <div className="flex flex-col space-y-6  px-3 text-primary sm:px-6 lg:px-8 border-b">
                 <div className="flex items-center justify-between">
                     <div className="text-lg font-medium hidden sm:block">
-                        dhairyas-org
+                        {localStorage.getItem('orgInfo') ? JSON.parse(localStorage.getItem('orgInfo')).organizationName : 'Something went wrong'}
                     </div>
                     <div>
                         <UserButton />
@@ -145,7 +163,14 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
-            <div className="mt-16">
+            <div className="flex flex-col items-center space-y-4 md:space-y-0 md:space-x-6 md:flex-row mt-16">
+                {
+                    apps.map((app, index) => {
+                        return (
+                            <AppCard key={index} appName={app.appName} appDescription={app.appDescription} />
+                        )
+                    })
+                }
                 <CreateApp handleClick={() => {
                         const href = `/app/dashboard?create=${true}`
                         setAppModalOpen(true)
