@@ -167,7 +167,7 @@ export default function Dashboard() {
                 {
                     apps.map((app, index) => {
                         return (
-                            <AppCard key={index} appName={app.appName} appDescription={app.appDescription} />
+                            <AppCard key={index} appName={app.appName} appDescription={app.appDescription} appEndpoint={app.appEndpoint} appId={app.appId}/>
                         )
                     })
                 }
