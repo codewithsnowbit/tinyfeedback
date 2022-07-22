@@ -14,11 +14,11 @@ export default async function handler(req, res){
 
 async function getAppInfo(req, res){
     // get the userId from the params
-    const endpoint = req.query.endpoint;
+    const orgId = req.query.orgId;
     try{
         const checkAppEntry = await prisma.application.findMany({
             where: {
-                appEndpoint: endpoint,
+                organizationId: orgId,
             }
         })
         if(checkAppEntry.length > 0){

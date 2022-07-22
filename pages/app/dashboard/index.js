@@ -37,7 +37,7 @@ export default function Dashboard() {
         async function getApps() {
             const org = JSON.parse(localStorage.getItem('orgInfo'))
             const organizationId = org.organizationId
-            await axios.get(`/api/appinfo?orgId=${organizationId}`)
+            await axios.get(`/api/applist?orgId=${organizationId}`)
             .then(res => {
                 const { data } = res
                 if(data.success){
@@ -145,7 +145,7 @@ export default function Dashboard() {
         <div className="max-w-screen-md mx-auto m-2 p-4 z-0">
             <div className="flex flex-col space-y-6  px-3 text-primary sm:px-6 lg:px-8 border-b">
                 <div className="flex items-center justify-between">
-                    <div className="text-lg font-medium hidden sm:block">
+                    <div className="text-lg hidden sm:block">
                         {localStorage.getItem('orgInfo') ? JSON.parse(localStorage.getItem('orgInfo')).organizationName : 'Something went wrong'}
                     </div>
                     <div>
